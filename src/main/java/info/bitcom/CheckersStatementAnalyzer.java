@@ -2,14 +2,14 @@ package info.bitcom;
 
 public class CheckersStatementAnalyzer {
 
-
-
-    public CheckersStatementAnalyzer(String input){
+    private String variableValue;
+    public CheckersStatementAnalyzer(String inputText){
     }
-    public void set(String input) {
+    public void set(String value) {
+        this.variableValue = value;
     }
 
     public String evaluate() {
-        return "a1";
+        return variableValue;
     }
 }
