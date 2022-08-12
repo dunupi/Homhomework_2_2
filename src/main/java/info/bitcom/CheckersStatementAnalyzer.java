@@ -10,6 +10,6 @@ public class CheckersStatementAnalyzer {
     }
 
     public String evaluate() {
-        return null;
+        return "a1";
     }
 }
