@@ -16,4 +16,11 @@ public class CheckersStatementAnalyzerTest {
         analyzer.set("three", "b2");
         assertEquals("a1, a3, b2",analyzer.evaluate());
     }
+    @Test
+    public void whenUnknowmVariablesAreNotIgnoredThenException() throws Exception {
+        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coordinates}");
+        analyzer.set("coordinates", "a1");
+        analyzer.set("doesnotexist", "a3");
+        assertEquals("input, a1", analyzer.evaluate());
+    }
 }

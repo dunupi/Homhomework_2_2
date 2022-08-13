@@ -19,8 +19,8 @@ public class CheckersStatementAnalyzer {
     public String evaluate() {
         String result = inputText;
         for (Entry<String,String> entry : variables.entrySet()) {
-            String reegex = "\\$\\{" + entry.getKey() + "\\}";
-            result = result.replaceAll(reegex, entry.getValue());
+            String regex = "\\$\\{" + entry.getKey() + "\\}";
+            result = result.replaceAll(regex, entry.getValue());
         }
         return result;
     }
