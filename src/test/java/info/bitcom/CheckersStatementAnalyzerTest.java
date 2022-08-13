@@ -34,10 +34,15 @@ public class CheckersStatementAnalyzerTest {
         assertEquals(expected, analyzer.evaluate());
     }
 
-    @Test(expected = MissingValueException.class)
+    @Test()
     public void missingValueRaisesException() throws Exception {
+        try{
         new CheckersStatementAnalyzer("${foo}").evaluate();
         fail("evaluate() should throw an exception if"
         + "a variable was left without a value!");
+        } catch (MissingValueException expected){
+            assertEquals("No value for ${foo}",
+                    expected.getMessage());
+        }
     }
 }
