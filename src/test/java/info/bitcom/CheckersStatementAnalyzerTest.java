@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class CheckersStatementAnalyzerTest {
 
@@ -17,8 +18,6 @@ public class CheckersStatementAnalyzerTest {
         analyzer.set("three", "b1");
 
     }
-
-
     @Test
     public void multipleVariables() throws Exception {
 
@@ -35,4 +34,10 @@ public class CheckersStatementAnalyzerTest {
         assertEquals(expected, analyzer.evaluate());
     }
 
+    @Test(expected = MissingValueException.class)
+    public void missingValueRaisesException() throws Exception {
+        new CheckersStatementAnalyzer("${foo}").evaluate();
+        fail("evaluate() should throw an exception if"
+        + "a variable was left without a value!");
+    }
 }

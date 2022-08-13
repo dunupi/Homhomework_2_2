@@ -22,6 +22,13 @@ public class CheckersStatementAnalyzer {
             String regex = "\\$\\{" + entry.getKey() + "\\}";
             result = result.replaceAll(regex, entry.getValue());
         }
+        checkForMissingValues(result);
         return result;
+    }
+    private void checkForMissingValues(String result){
+        if (result.matches(".*\\$\\{.+\\}.*")){
+            throw new MissingValueException();
+        }
+
     }
 }
