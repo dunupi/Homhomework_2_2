@@ -1,39 +1,38 @@
 package info.bitcom;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class CheckersStatementAnalyzerTest {
 
-    @Test
-    public void oneVariable() throws Exception{
-        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coord}");
-        analyzer.set("coord", "a1");
-        assertEquals("input, a1", analyzer.evaluate());
-    }
+    private CheckersStatementAnalyzer analyzer;
 
-    @Test
-    public void differentVariable() throws Exception{
-        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coord}");
-        analyzer.set("coord", "a3");
-        assertEquals("input, a3", analyzer.evaluate());
+    @Before
+    public void setUp() throws Exception {
+        analyzer = new CheckersStatementAnalyzer("${one}, ${two}, ${three}");
+        analyzer.set("one", "a1");
+        analyzer.set("two", "a3");
+        analyzer.set("three", "b1");
+
     }
 
 
     @Test
     public void multipleVariables() throws Exception {
-        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("${one}, ${two}, ${three}");
-        analyzer.set("one", "a1");
-        analyzer.set("two", "a3");
-        analyzer.set("three", "b2");
-        assertEquals("a1, a3, b2",analyzer.evaluate());
+
+        assertAnalyzerEvaluatesTo("a1, a3, b1");
     }
+
     @Test
     public void whenUnknowmVariablesAreNotIgnoredThenException() throws Exception {
-        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coordinates}");
-        analyzer.set("coordinates", "a1");
-        analyzer.set("doesnotexist", "a3");
-        assertEquals("input, a1", analyzer.evaluate());
+        analyzer.set("doesnotexist", "whatever");
+        assertAnalyzerEvaluatesTo("a1, a3, b1");
     }
+
+    private void assertAnalyzerEvaluatesTo(String expected) {
+        assertEquals(expected, analyzer.evaluate());
+    }
+
 }
