@@ -6,6 +6,19 @@ import static org.junit.Assert.assertEquals;
 
 public class CheckersStatementAnalyzerTest {
 
+    @Test
+    public void oneVariable() throws Exception{
+        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coord}");
+        analyzer.set("coord", "a1");
+        assertEquals("input, a1", analyzer.evaluate());
+    }
+
+    @Test
+    public void differentVariable() throws Exception{
+        CheckersStatementAnalyzer analyzer = new CheckersStatementAnalyzer("input, ${coord}");
+        analyzer.set("coord", "a3");
+        assertEquals("input, a3", analyzer.evaluate());
+    }
 
 
     @Test
