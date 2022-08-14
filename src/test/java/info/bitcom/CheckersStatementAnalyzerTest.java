@@ -43,6 +43,7 @@ public class CheckersStatementAnalyzerTest {
         }
 
 
-    private void assertAnalyzerEvaluatesTo(String s) {
+    private void assertAnalyzerEvaluatesTo(String expected) {
+            assertEquals(expected,analyzer.evaluate());
     }
 }
