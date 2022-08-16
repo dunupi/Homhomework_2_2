@@ -27,6 +27,7 @@ public class CheckersStatementAnalyzer {
     private String replaceVariables() {
         String result = inputText;
         for (Entry<String,String> entry : variables.entrySet()) {
+
             String regex = "\\$\\{" + entry.getKey() + "\\}";
             result = result.replaceAll(regex, entry.getValue());
         }
