@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+
 public class CheckersStatementAnalyzerTest {
 
         private CheckersStatementAnalyzer analyzer;
@@ -30,20 +31,20 @@ public class CheckersStatementAnalyzerTest {
             assertAnalyzerEvaluatesTo("a1, a3, b1");
         }
 
-        @Test()
-        public void missingValueRaisesException () throws Exception {
-            try {
+
+        @Test
+        public void missingValuesRaisesException() throws Exception {
+            try{
                 new CheckersStatementAnalyzer("${foo}").evaluate();
-                fail("evaluate() should throw an exception if"
-                        + "a variable was left without a value!");
-            } catch (MissingValueException expected) {
+                fail("evaluate() should throw an exception if "
+                + " a variable was left without a value! ");
+            } catch (MissingValueException expected){
                 assertEquals("No value for ${foo}",
                         expected.getMessage());
             }
         }
 
-
-    private void assertAnalyzerEvaluatesTo(String expected) {
+        private void assertAnalyzerEvaluatesTo(String expected) {
             assertEquals(expected,analyzer.evaluate());
-    }
+        }
 }

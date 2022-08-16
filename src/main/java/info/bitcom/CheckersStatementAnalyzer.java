@@ -28,14 +28,14 @@ public class CheckersStatementAnalyzer {
         String result = inputText;
         for (Entry<String,String> entry : variables.entrySet()) {
 
-            String regex = "\\$\\{" + entry.getKey() + "\\}";
+            String regex = "\\$\\{" + entry.getKey() + "}";
             result = result.replaceAll(regex, entry.getValue());
         }
         return result;
     }
 
     private void checkForMissingValues(String result){
-        Matcher m = Pattern.compile("\\$\\{.+ \\}.*").matcher(result);
+        Matcher m = Pattern.compile(".*\\$\\{.*}").matcher(result);
         if (m.find()){
             throw new MissingValueException("No value for " + m.group());
         }
