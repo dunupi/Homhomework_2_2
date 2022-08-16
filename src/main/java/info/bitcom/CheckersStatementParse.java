@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class CheckersStatementParse {
+public class  CheckersStatementParse {
     public List<String> parse(String template) {
         List<String> segments = new ArrayList<>();
         int index = collectSegments(segments, template);
