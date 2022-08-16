@@ -10,8 +10,8 @@ import static java.util.Map.Entry;
 
 public class CheckersStatementAnalyzer {
 
-    private Map<String,String> variables;
-    private String inputText;
+    private final Map<String,String> variables;
+    private final String inputText;
     public CheckersStatementAnalyzer(String inputText){
         this.variables = new HashMap<>();
         this.inputText = inputText;
@@ -24,8 +24,12 @@ public class CheckersStatementAnalyzer {
     public String evaluate(){
         CheckersStatementParse parser = new CheckersStatementParse();
         List<String> segments = parser.parse(inputText);
+        return concatenateSegments(segments);
+    }
+
+    private String concatenateSegments(List<String> segments) {
         StringBuilder result = new StringBuilder();
-        for(String segment: segments) {
+        for(String segment : segments) {
             append(segment, result);
         }
         return result.toString();
