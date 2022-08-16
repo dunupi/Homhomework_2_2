@@ -37,34 +37,25 @@ public class CheckersStatementAnalyzer {
 
 
     private void append(String segment, StringBuilder result) {
-        if (segment.startsWith("${") && segment.endsWith("}")) {
-            String var = segment.substring(2, segment.length()-1);
-            if (!variables.containsKey(var)) {
-                throw new MissingValueException("No value for " + segment);
-            }
-            result.append(variables.get(var));
+        if (isVariable(segment)){
+            evaluateVariable(segment,result);
         } else {
             result.append(segment);
         }
     }
 
-    private String replaceVariables() {
-        String result = inputText;
-        for (Entry<String,String> entry : variables.entrySet()) {
-
-            String regex = "\\$\\{" + entry.getKey() + "}";
-            result = result.replaceAll(regex, entry.getValue());
-        }
-        return result;
+    private boolean isVariable(String segment) {
+        return segment.startsWith("${") && segment.endsWith("}");
     }
 
-    private void checkForMissingValues(String result){
-        Matcher m = Pattern.compile(".*\\$\\{.*}").matcher(result);
-        if (m.find()){
-            throw new MissingValueException("No value for " + m.group());
+    private void evaluateVariable(String segment, StringBuilder result) {
+        String var = segment.substring(2, segment.length()-1);
+        if(!variables.containsKey(var)) {
+            throw new MissingValueException("No value for " + segment);
         }
-
+        result.append(variables.get(var));
     }
+
 }
 
 
