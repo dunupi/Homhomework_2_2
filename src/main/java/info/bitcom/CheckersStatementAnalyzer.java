@@ -34,7 +34,7 @@ public class CheckersStatementAnalyzer {
     }
 
     private void checkForMissingValues(String result){
-        Matcher m = Pattern.compile(".*\\$\\{.+\\}.*").matcher(result);
+        Matcher m = Pattern.compile("\\$\\{.+ \\}.*").matcher(result);
         if (m.find()){
             throw new MissingValueException("No value for " + m.group());
         }
