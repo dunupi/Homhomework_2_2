@@ -1,5 +1,6 @@
 package info.bitcom;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,8 @@ public class CheckersStatementAnalyzer {
     }
 
 
-    public String evaluate(){
+
+    public String evaluate() {
         CheckersStatementParse parser = new CheckersStatementParse();
         List<String> segments = parser.parse(inputText);
         return concatenateSegments(segments);
@@ -35,6 +37,14 @@ public class CheckersStatementAnalyzer {
         return result.toString();
     }
 
+    private String concatenate(List<Segment> segments) {
+        StringBuilder result = new StringBuilder();
+        for(Segment segment : segments) {
+            segment.appendTo(result, variables);
+        }
+        return result.toString();
+    }
+
 
     private void append(String segment, StringBuilder result) {
         if (isVariable(segment)){
@@ -44,7 +54,7 @@ public class CheckersStatementAnalyzer {
         }
     }
 
-    private boolean isVariable(String segment) {
+    public static boolean isVariable(String segment) {
         return segment.startsWith("${") && segment.endsWith("}");
     }
 

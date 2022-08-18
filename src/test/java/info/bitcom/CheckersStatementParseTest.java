@@ -39,4 +39,13 @@ public class CheckersStatementParseTest {
         assertSegments(segments,"${a1}", ":", "${b3}"," ", "${c1}", "-", "${d4}");
     }
 
+    @Test
+    public void parsingTemplateIntoSegmentObjects() throws Exception {
+        CheckersStatementParse p = new CheckersStatementParse();
+        List<Segment> segments = p.parseSegments("a1 ${b3} c4 ${d5}");
+        assertSegments(segments,
+                new PlainText("a1 "), new Variable("b2"),
+        new PlainText(" c4 "), new Variable("d5"));
+    }
+
 }
